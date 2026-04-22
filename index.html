@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noggin Consulting LLC — IT & Tech Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0d1b2a;
+      --navy-mid: #152233;
+      --steel: #1e3a5f;
+      --accent: #2e9cca;
+      --accent-light: #5bbde0;
+      --cream: #f5f0e8;
+      --warm-white: #fafaf7;
+      --text: #1a1a2e;
+      --text-muted: #5a6a7a;
+      --border: #dde3ea;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(250,250,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--navy);
+      color: var(--warm-white) !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 4px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--steel) !important; color: var(--warm-white) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(46,156,202,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(13,27,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(13,27,42,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 28px; height: 2px; background: var(--accent);
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 4vw, 4rem);
+      line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc {
+      font-size: 1.1rem; line-height: 1.75;
+      color: var(--text-muted); max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--navy); color: var(--warm-white);
+      padding: 0.9rem 2rem; border-radius: 4px;
+      text-decoration: none; font-weight: 500; font-size: 0.95rem;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--steel); transform: translateY(-1px); }
+    .btn-outline {
+      border: 1.5px solid var(--border); color: var(--text);
+      padding: 0.9rem 2rem; border-radius: 4px;
+      text-decoration: none; font-weight: 500; font-size: 0.95rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-card {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 2.5rem;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 40px 80px rgba(13,27,42,0.2), 0 0 0 1px rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(46,156,202,0.2) 0%, transparent 70%);
+    }
+    .card-dots {
+      display: flex; gap: 6px; margin-bottom: 1.5rem;
+    }
+    .card-dots span {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+    .card-dots span:first-child { background: #ff5f57; }
+    .card-dots span:nth-child(2) { background: #febc2e; }
+    .card-dots span:nth-child(3) { background: #28c840; }
+    .card-line {
+      height: 2px; border-radius: 2px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 0.8rem;
+    }
+    .card-line.accent { background: var(--accent); width: 60%; }
+    .card-line.short { width: 40%; }
+    .card-line.med { width: 75%; }
+    .card-stat-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .card-stat {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px; padding: 1rem;
+    }
+    .card-stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem; color: var(--accent-light);
+    }
+    .card-stat-label {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--navy);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      padding: 2.5rem 3rem;
+    }
+    .stat-item {
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      padding: 0 2rem;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem; color: var(--accent-light);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.8rem; color: rgba(255,255,255,0.45);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-top: 0.25rem;
+    }
+
+    /* SECTIONS */
+    section { padding: 6rem 3rem; }
+    .section-eyebrow {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .section-eyebrow::before {
+      content: ''; display: block;
+      width: 20px; height: 2px; background: var(--accent);
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      color: var(--navy); line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    /* SERVICES */
+    #services { background: var(--cream); }
+    .services-header { text-align: center; max-width: 560px; margin: 0 auto 4rem; }
+    .services-header p { margin-top: 1rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .service-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(13,27,42,0.1);
+      border-color: var(--accent);
+    }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: rgba(46,156,202,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.4rem;
+    }
+    .service-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem; color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .service-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ABOUT */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .about-image {
+      position: relative;
+    }
+    .about-box {
+      background: var(--navy);
+      border-radius: 12px;
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .about-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 70%, rgba(46,156,202,0.25) 0%, transparent 60%);
+    }
+    .about-box-icon {
+      font-size: 5rem; opacity: 0.15; position: relative;
+    }
+    .about-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--accent);
+      color: white; border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-family: 'DM Serif Display', serif;
+      box-shadow: 0 8px 24px rgba(46,156,202,0.4);
+    }
+    .about-badge-num { font-size: 2rem; display: block; line-height: 1; }
+    .about-badge-text { font-size: 0.75rem; font-family: 'DM Sans', sans-serif; opacity: 0.85; }
+    .about-content { padding-bottom: 1rem; }
+    .about-content p {
+      margin-top: 1.25rem; color: var(--text-muted);
+      font-size: 1rem; line-height: 1.8;
+    }
+    .about-list {
+      list-style: none; margin-top: 1.75rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .about-list li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.95rem; color: var(--text);
+    }
+    .about-list li::before {
+      content: '✓';
+      color: var(--accent); font-weight: 700;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* PORTFOLIO */
+    #portfolio { background: var(--cream); }
+    .portfolio-header { text-align: center; max-width: 560px; margin: 0 auto 4rem; }
+    .portfolio-header p { margin-top: 1rem; color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .project-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(13,27,42,0.1);
+    }
+    .project-thumb {
+      background: var(--navy);
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; position: relative; overflow: hidden;
+    }
+    .project-thumb::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(46,156,202,0.2) 0%, transparent 70%);
+    }
+    .project-body { padding: 1.5rem; }
+    .project-tag {
+      display: inline-block;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--accent); background: rgba(46,156,202,0.1);
+      padding: 0.2rem 0.6rem; border-radius: 3px;
+      margin-bottom: 0.75rem;
+    }
+    .project-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem; color: var(--navy); margin-bottom: 0.6rem;
+    }
+    .project-body p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* CONTACT */
+    #contact {
+      background: var(--navy);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+      padding: 6rem 3rem;
+    }
+    #contact h2 { color: var(--warm-white); }
+    #contact .section-eyebrow { color: var(--accent-light); }
+    #contact .section-eyebrow::before { background: var(--accent-light); }
+    .contact-desc {
+      margin-top: 1.25rem; color: rgba(255,255,255,0.55);
+      font-size: 1rem; line-height: 1.8;
+    }
+    .contact-info { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-icon {
+      width: 42px; height: 42px; border-radius: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-item-text { font-size: 0.95rem; color: rgba(255,255,255,0.7); }
+    .contact-item-text strong { display: block; color: white; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-size: 0.78rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45);
+    }
+    .form-group input,
+    .form-group textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px; padding: 0.85rem 1rem;
+      color: white; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--accent); }
+    .form-group textarea { min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      background: var(--accent); color: white;
+      border: none; border-radius: 6px;
+      padding: 1rem 2rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 500; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      align-self: flex-start;
+    }
+    .btn-submit:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: #070f18;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.75rem 3rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: rgba(255,255,255,0.5);
+    }
+    .footer-logo span { color: var(--accent); }
+    footer p {
+      font-size: 0.82rem; color: rgba(255,255,255,0.3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    h1 { animation-delay: 0.25s; }
+    .hero-desc { animation-delay: 0.4s; }
+    .hero-actions { animation-delay: 0.55s; }
+    .hero-visual {
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+      .hero-visual { display: none; }
+      .stats-bar { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Noggin<span>.</span>Consulting</div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">IT & Technology Consulting</div>
+      <h1>Smart Solutions for <em>Modern</em> Business</h1>
+      <p class="hero-desc">Noggin Consulting LLC delivers expert technology consulting — from infrastructure and automation to custom software and smart systems — helping businesses run smarter and scale faster.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Explore Services</a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="card-line accent"></div>
+        <div class="card-line"></div>
+        <div class="card-line short"></div>
+        <div class="card-line med"></div>
+        <div class="card-line short"></div>
+        <div class="card-stat-row">
+          <div class="card-stat">
+            <div class="card-stat-num">99%</div>
+            <div class="card-stat-label">Uptime</div>
+          </div>
+          <div class="card-stat">
+            <div class="card-stat-num">24h</div>
+            <div class="card-stat-label">Response</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-num">10+</span>
+      <span class="stat-label">Years Experience</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">50+</span>
+      <span class="stat-label">Projects Delivered</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Client Satisfaction</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">24/7</span>
+      <span class="stat-label">Support Available</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header">
+      <div class="section-eyebrow">What We Do</div>
+      <h2>Comprehensive IT Solutions</h2>
+      <p>From strategy to implementation, we bring deep technical expertise and a practical approach to every engagement.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🖧</div>
+        <h3>Network & Infrastructure</h3>
+        <p>Design, deployment, and management of reliable, scalable network infrastructure tailored to your business needs.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>IT Automation</h3>
+        <p>Streamline workflows and eliminate repetitive tasks with custom automation solutions that save time and reduce errors.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏠</div>
+        <h3>Smart Systems & IoT</h3>
+        <p>Integration of smart devices and IoT systems for homes and businesses — connected, monitored, and automated.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>Cloud Solutions</h3>
+        <p>Migration, configuration, and optimization of cloud infrastructure on AWS, Google Cloud, and other platforms.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>Custom Software Development</h3>
+        <p>Python, web apps, APIs, and scripts built to solve your specific technical challenges efficiently.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔒</div>
+        <h3>Security & Monitoring</h3>
+        <p>Protect your systems with security assessments, monitoring solutions, and best-practice implementation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div style="padding: 6rem 3rem; max-width: 1160px; margin: 0 auto;" id="about-wrap">
+    <div id="about">
+      <div class="about-image">
+        <div class="about-box">
+          <div class="about-box-icon">🧠</div>
+        </div>
+        <div class="about-badge">
+          <span class="about-badge-num">10+</span>
+          <span class="about-badge-text">Years in Tech</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-eyebrow">About Us</div>
+        <h2>Technology That Works for You</h2>
+        <p>Noggin Consulting LLC is a boutique IT consulting firm focused on delivering practical, high-quality technology solutions. We work closely with clients to understand their goals and build systems that are reliable, efficient, and built to last.</p>
+        <p>Whether you're a small business looking to modernize your infrastructure or need a custom technical solution, we bring hands-on expertise and a no-nonsense approach.</p>
+        <ul class="about-list">
+          <li>Hands-on technical expertise across hardware and software</li>
+          <li>Practical solutions without unnecessary complexity</li>
+          <li>Clear communication and transparent project management</li>
+          <li>Ongoing support and maintenance after delivery</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="portfolio-header">
+      <div class="section-eyebrow">Our Work</div>
+      <h2>Recent Projects</h2>
+      <p>A selection of technology solutions we've built and deployed for clients across industries.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="project-card">
+        <div class="project-thumb">🔌</div>
+        <div class="project-body">
+          <span class="project-tag">IoT / Monitoring</span>
+          <h3>Contact Closure Monitoring System</h3>
+          <p>A real-time IoT monitoring system using Raspberry Pi Pico 2 W with MicroPython, exposed publicly via Cloudflare Tunnel with a live web dashboard.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb">📊</div>
+        <div class="project-body">
+          <span class="project-tag">Automation</span>
+          <h3>Raspberry Pi Google Sheets Monitor</h3>
+          <p>Automated data logging system that streams sensor data directly into Google Sheets for real-time tracking and reporting.</p>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb">🏡</div>
+        <div class="project-body">
+          <span class="project-tag">Smart Home</span>
+          <h3>Govee Smart Home Integration</h3>
+          <p>Custom macOS menu bar app for controlling smart plugs and home automation devices in the Govee ecosystem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div>
+      <div class="section-eyebrow">Get in Touch</div>
+      <h2>Let's Talk About Your Project</h2>
+      <p class="contact-desc">Have a technical challenge or project in mind? We'd love to hear about it. Reach out and we'll get back to you promptly.</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-item-text">
+            <strong>Email</strong>
+            info@nogginconsultingllc.com
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-item-text">
+            <strong>Website</strong>
+            nogginconsultingllc.com
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <strong>Location</strong>
+            Vancouver, WA
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John" required />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="john@example.com" required />
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="How can we help?" required />
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us about your project or question..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Message →</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Noggin<span>.</span>Consulting LLC</div>
+    <p>© 2026 Noggin Consulting LLC. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#28a745';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
